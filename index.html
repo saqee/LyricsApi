@@ -7,11 +7,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon -->
-    <link rel="shortcut icon" href="image/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <!-- Custom css -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -231,7 +231,15 @@
     <!-- Custom Script Here -->
 <script>
     document.getElementById('search').addEventListener('click',function(){
-        showResult();
+        let artist=document.getElementById('artist').value;
+        if (artist === '') {
+           alert('empty field')
+        } else {
+            showResult();
+               
+              
+        }
+        
     })
    function showResult(){
        let artist=document.getElementById('artist').value;
@@ -250,6 +258,8 @@
            childButton.innerHTML="Get Lyrics"
            childButton.style.float="right"
            childButton.style.backgroundColor="green"
+           childButton.style.borderRadius="5px"
+           childButton.style.border="5px solid green"
           childItem.style.color="red"
           childItem.style.width="1000px"
           childItem.style.fontFamily="Arial"
@@ -264,11 +274,25 @@
         .then(data=>{
            let lyricsResult=data.lyrics;
            let box1=document.getElementById('box1')
-           let lyrics=document.createElement('p');
+           box1.style.backgroundColor="black"
+           let lyrics=document.createElement('pre');
            let breakpoint1=document.createElement('br');
-           lyrics.innerHTML=lyricsResult;
+           lyrics.style.color="white"
+           lyrics.style.textAlign="center"
+           lyrics.innerHTML='<h1>'+item+'</h1>'+'<br>'+'<br>'+'<h3>'+artist1+'</h3>'+'<br>'+'<br>'+lyricsResult;
+           
            box1.appendChild(lyrics);
            box1.appendChild(breakpoint1);
+          
+          childButton.addEventListener('click',function(){
+             
+              setTimeout(() => {
+                box1.style.display="none";
+              }, 3000);
+              childButton.addEventListener('click',function(){
+                box1.style.display="block";
+              })
+          })
         })
             })
             }
